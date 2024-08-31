@@ -1,9 +1,21 @@
 <script setup>
-import jobsData from '@/jobs.json'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import JobListing from '@/components/JobListing.vue'
+import useJobs from '../composables/jobs'
 
-const jobs = ref(jobsData)
+const { jobs, getJobs } = useJobs();
+
+defineProps({
+    limit: Number,
+    showButton: {
+        type: Boolean,
+        default: false
+    }
+})
+
+
+onMounted(() => { getJobs() })
+
 </script>
 
 <template>
@@ -19,4 +31,13 @@ const jobs = ref(jobsData)
         </div>
     </section>
 
+    <section v-if="showButton" class="m-auto max-w-lg my-10 px-6">
+      <a
+        href="jobs.html"
+        class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
+        >Ver todas as vagas</a
+      >
+    </section>
+
 </template>
+../composables/jobs
