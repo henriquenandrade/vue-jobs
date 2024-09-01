@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import JobListing from '@/components/JobListing.vue'
 import useJobs from '../composables/jobs'
+import { RouterLink } from 'vue-router'
 
 const { jobs, getJobs } = useJobs();
 
@@ -32,11 +33,10 @@ onMounted(() => { getJobs() })
     </section>
 
     <section v-if="showButton" class="m-auto max-w-lg my-10 px-6">
-      <a
+      <RouterLink
+        to="/jobs"
         class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
-        >Ver todas as vagas</a
-      >
+        >Ver todas as vagas</RouterLink>
     </section>
 
 </template>
-../composables/jobs
