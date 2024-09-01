@@ -1,7 +1,20 @@
 <script setup>
-    defineProps({
-        job: Object
-    })
+import { ref, computed } from 'vue'
+
+const props = defineProps({
+    job: Object
+})
+
+const showFullDescription = ref(false)
+
+const truncatedDescription = computed(() => {
+    let description = props.job.description;
+    if(!showFullDescription.value) {
+        description = description.substring(0, 100) + "...";
+    }
+
+    return description;
+})
 </script>
 
 <template>
@@ -13,7 +26,7 @@
             </div>
 
             <div class="mb-5">
-            {{job.description}}
+            {{truncatedDescription}}
             </div>
 
             <h3 class="text-green-500 mb-2">{{ job.salary }}</h3>
@@ -22,7 +35,7 @@
 
             <div class="flex flex-col lg:flex-row justify-between mb-4">
             <div class="text-orange-700 mb-3">
-                <i class="fa-solid fa-location-dot text-lg"></i>
+                <i class="pi pi-map-marker text-orange-700"></i>
                 {{ job.location }}
             </div>
             <a
