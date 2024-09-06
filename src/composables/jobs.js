@@ -1,12 +1,21 @@
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import api from '../services/Api'
 
 export default function useJobs() {
-    const jobs = ref([])
+    const state = reactive({
+        jobs: [],
+        isLoading: true
+    })
 
     const getJobs = async () => {
-        const response = await api.get('/jobs')
-        jobs.value = response.data.data
+        try{
+            const response = await api.get('/jobs')
+            state.jobs = response.data.data
+        } catch(error) {
+            console.log("Error fetching data" + error)
+        } finally {
+            state.isLoading = false
+        }
     }
-    return { jobs, getJobs }
+    return { state, getJobs }
 }

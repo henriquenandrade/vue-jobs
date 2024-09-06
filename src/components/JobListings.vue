@@ -4,7 +4,7 @@ import JobListing from '@/components/JobListing.vue'
 import useJobs from '../composables/jobs'
 import { RouterLink } from 'vue-router'
 
-const { jobs, getJobs } = useJobs();
+const { state, getJobs } = useJobs();
 
 defineProps({
     limit: Number,
@@ -27,7 +27,7 @@ onMounted(() => { getJobs() })
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <JobListing v-for="job in jobs.slice(0, limit)" :key="job.id" :job="job" />
+                <JobListing v-for="job in state.jobs.slice(0, limit || state.jobs.length)" :key="job.id" :job="job" />
             </div>
         </div>
     </section>
