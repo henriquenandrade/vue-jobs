@@ -1,8 +1,9 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import JobListing from '@/components/JobListing.vue'
 import useJobs from '../composables/jobs'
 import { RouterLink } from 'vue-router'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 const { state, getJobs } = useJobs();
 
@@ -26,7 +27,11 @@ onMounted(() => { getJobs() })
                 Encontre vagas
             </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div v-if="state.isLoading" class="text-center text-gray-500 py-6">
+                <PulseLoader />
+            </div>
+
+            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <JobListing v-for="job in state.jobs.slice(0, limit || state.jobs.length)" :key="job.id" :job="job" />
             </div>
         </div>
