@@ -3,6 +3,7 @@ import { onMounted } from 'vue'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import { RouterLink, useRoute } from 'vue-router'
 import useJob from '@/composables/job'
+import BackButton from '@/components/BackButton.vue'
 
 const route = useRoute()
 const jobId = route.params.id
@@ -14,6 +15,7 @@ onMounted(() => getJob(jobId) )
 </script>
 
 <template>
+  <BackButton /> 
     <section v-if="!state.isLoading" class="bg-green-50">
       <div class="container m-auto py-10 px-6">
         <div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
